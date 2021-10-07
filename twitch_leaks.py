@@ -4,6 +4,7 @@ import os
 
 STREAMER_ID = 41719107
 
+
 def elapsed_time_formatted(begin_time):
     """
     Calculates difference between begin_time and actual time,
