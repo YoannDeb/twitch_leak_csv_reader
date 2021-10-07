@@ -1,4 +1,4 @@
-# twitch_leaks
+# twitch_leaks_csv_reader
 Twitch pay for any streamer in 2021
 
 Needs csv files from twitch leaks (in twitch-leaks-part-one/twitch-payouts/all_revenues/2021).
