@@ -2,6 +2,7 @@ import tablib
 import time
 import os
 
+STREAMER_ID = 41719107
 
 def elapsed_time_formatted(begin_time):
     """
@@ -51,7 +52,7 @@ for i in range(1, 11):
         imported_data = extract_csv(file)
         print(f"csv imported {elapsed_time_formatted(start)}")
         for row in imported_data:
-            if int(row[0]) == 49474235:
+            if int(row[0]) == STREAMER_ID:
                 for column in row:
                     month_results.append(column)
         print(month_results)
