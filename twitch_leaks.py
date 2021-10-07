@@ -49,6 +49,7 @@ for i in range(1, 11):
     month = str(i)
     if len(month) == 1:
         month = "0" + month
+
     with open(f"all_revenues_{month}_{year}.csv") as file:
         imported_data = extract_csv(file)
         print(f"csv imported {elapsed_time_formatted(start)}")
@@ -65,6 +66,7 @@ for i in range(1, 11):
         print(f"Length of datafile: {len(imported_data)}")
         imported_data = []
     results.append(sum_salary)
+
     if month == "01":
         complete_year = "20" + (str(int(year) - 1))
     elif month == "12":
