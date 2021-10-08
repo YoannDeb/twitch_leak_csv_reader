@@ -114,7 +114,7 @@ for i in range(FIRST_MONTH, LAST_MONTH + 1):
         sum_fuel_rev_gross += int(float(month_results[9])*100)
 
     print(f"Time elapsed: {elapsed_time_formatted(start)}")
-    print(f"Length of datafile: {len(imported_data)} rows")
+    print(f"Length of datafile: {len(imported_data)} rows.")
     imported_data = []
     print(f"Payment of {CALENDAR[pay_month]} {pay_complete_year} "
           f"(stream month: {CALENDAR[stream_month]} {stream_complete_year}): "
@@ -146,8 +146,9 @@ sum_fuel_rev_gross = round(sum_fuel_rev_gross/100, 2)
 
 print(f"Total pay of {CALENDAR[first_month]} to {CALENDAR[pay_month]} {pay_complete_year} "
       f"({nb_of_months} months): {total}$")
-print(f"Average month pay: {average}$")
+
 if total > 0:
+    print(f"Average month pay: {average}$")
     print(f"Total details: ad_share_gross: {sum_ad_share_gross}$, "
           f"sub_share_gross: {sum_sub_share_gross}$, "
           f"bits_share_gross: {sum_bits_share_gross}$, "
