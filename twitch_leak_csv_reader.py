@@ -3,11 +3,16 @@ import time
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
-STREAMER_ID = 12345678
+STREAMER_ID = 49632767
 
-# If true, all files from allrevenues_19_08 to all_revenues_21_10 will be analyzed.
+# Specify a file name for specific cases, don't forget to put ""
+# FILENAME = "all_revenues_19_08.csv"
+# put ALL_FILES to False and put a valid YEAR
+FILENAME = "all_revenues_19_08.csv"
+
+# If true, all files from all_revenues_19_08 to all_revenues_21_10 will be analyzed.
 # YEAR, FIRST_MONTH and LAST_MONTH will be ignored
-ALL_FILES = True
+ALL_FILES = False
 
 # Change year here.
 YEAR = 21
@@ -19,8 +24,6 @@ YEAR = 21
 # For the year 2021, range is 1 to 10.
 FIRST_MONTH = 1
 LAST_MONTH = 10
-
-FILENAME = None
 
 CALENDAR = {
     "01": "January",
@@ -75,14 +78,14 @@ else:
     last_month = 1
 
 
-if ALL_FILES:
-    year_range = range(19, 22)
-    first_year = "2019"
-    last_year = "2021"
-else:
+if not ALL_FILES or FILENAME is not None:
     year_range = range(YEAR, YEAR + 1)
     first_year = "20" + str(YEAR)
     last_year = first_year
+else:
+    year_range = range(19, 22)
+    first_year = "2019"
+    last_year = "2021"
 
 for year in year_range:
     if year == 19:
@@ -95,6 +98,8 @@ for year in year_range:
         first_month = 1
         last_month = 10
 
+    if FILENAME is not None:
+        first_month = last_month = 1
     for i in range(first_month, last_month + 1):
         month_results = []
         nb_of_months += 1
