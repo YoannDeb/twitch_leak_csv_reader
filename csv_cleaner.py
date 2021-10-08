@@ -76,4 +76,3 @@ for year in range(19, 22):
         print()
 
 print(f"Duration of treatment: {elapsed_time_formatted(start)}")
-
