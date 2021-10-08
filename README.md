@@ -5,7 +5,7 @@ Shows twitch pay for any streamer in a year from Twitch leaked CSV files.
 
 * Needs csv files from twitch leaks (in twitch-leaks-part-one/twitch-payouts/all_revenues/).
 
-* One is needed from each month (seems to be redundant), you can maybe take the slightly bigger one but from my few tests it didn't make any différence...
+* One is needed from each month (seems to be redundant), you can maybe take the slightly bigger one but from my few tests it didn't make any difference...
 
 * Decompress files and rename them allrevenues_yy_mm.csv (for exemple allrevenues_21_01.csv for january 2021) and place it in the same folder than twitch_leaks_csv_reader.py.
 
@@ -13,7 +13,7 @@ Shows twitch pay for any streamer in a year from Twitch leaked CSV files.
 
 * The default year is 2021, first month is 1, last month is 10.
 
-* You can replace the year of analysis, the first month and last month by changing the corresponding constants in twitch_leaks.py.
+* You can replace the year of analysis, the first month and last month by changing the corresponding constants in twitch_leaks_csv_reader.py.
 
 * Those constants are named YEAR, FIRST_MONTH, LAST_MONTH.
 
@@ -29,9 +29,9 @@ Shows twitch pay for any streamer in a year from Twitch leaked CSV files.
 
 ## Changing streamer analyzed:
 
-* You can find ID of the streamer with is username using a site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ .
+* You can find ID of the streamer with his username using a site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ .
 
-* Replace constant STREAMER_ID value at the beginning of twitch_leaks.py with your favorite text editor to the one of the streamer you want. (exemple STREAMER_ID = 12345678)
+* Replace constant STREAMER_ID value at the beginning of twitch_leaks_csv_reader.py with your favorite text editor to the one of the streamer you want. (exemple STREAMER_ID = 12345678)
 
 ## Requirements:
 
