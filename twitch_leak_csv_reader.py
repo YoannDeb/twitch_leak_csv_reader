@@ -3,16 +3,11 @@ import time
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
-STREAMER_ID = 49632767
-
-# Specify a file name for specific cases, don't forget to put ""
-# FILENAME = "all_revenues_19_08.csv"
-# put ALL_FILES to False and put a valid YEAR
-FILENAME = "all_revenues_19_08.csv"
+STREAMER_ID = 12345678
 
 # If true, all files from all_revenues_19_08 to all_revenues_21_10 will be analyzed.
 # YEAR, FIRST_MONTH and LAST_MONTH will be ignored
-ALL_FILES = False
+ALL_FILES = True
 
 # Change year here.
 YEAR = 21
@@ -70,15 +65,10 @@ sum_bits_extension_share_gross = 0
 sum_bit_share_ad_gross = 0
 sum_fuel_rev_gross = 0
 
-if FILENAME is None:
-    first_month = FIRST_MONTH
-    last_month = LAST_MONTH
-else:
-    first_month = 1
-    last_month = 1
+first_month = 1
+last_month = 1
 
-
-if not ALL_FILES or FILENAME is not None:
+if not ALL_FILES:
     year_range = range(YEAR, YEAR + 1)
     first_year = "20" + str(YEAR)
     last_year = first_year
@@ -98,8 +88,6 @@ for year in year_range:
         first_month = 1
         last_month = 10
 
-    if FILENAME is not None:
-        first_month = last_month = 1
     for i in range(first_month, last_month + 1):
         month_results = []
         nb_of_months += 1
@@ -125,10 +113,7 @@ for year in year_range:
         else:
             stream_complete_year = "20" + str(year)
 
-        if FILENAME is None:
-            filename = f"all_revenues_{year}_{pay_month}.csv"
-        else:
-            filename = FILENAME
+        filename = f"all_revenues_{year}_{pay_month}.csv"
 
         print(f"Processing with {CALENDAR[pay_month]} {pay_complete_year}, please wait...")
         with open(filename) as file:
@@ -203,9 +188,8 @@ else:
           f"({active_months_count} active months over {nb_of_months} months): {total}$")
 
 if total > 0:
-    if FILENAME is None:
-        print(f"Average month payout: {average}$")
-    if average != average_active_months or FILENAME is not None:
+    print(f"Average month payout: {average}$")
+    if average != average_active_months:
         print(f"Average active months payout: {average_active_months}$")
     print(f"Total details: ad_share_gross: {sum_ad_share_gross}$, "
           f"sub_share_gross: {sum_sub_share_gross}$, "
@@ -214,17 +198,16 @@ if total > 0:
           f"bits_developer_share_gross: {sum_bits_developer_share_gross}$, "
           f"bits_extension_share_gross: {sum_bits_extension_share_gross}$, "
           f"bit_share_ad_gross: {sum_bit_share_ad_gross}$, fuel_rev_gross: {sum_fuel_rev_gross}$")
-    if FILENAME is None:
-        print(f"Average month details: ad_share_gross: {round(sum_ad_share_gross / nb_of_months, 2)}$, "
-              f"sub_share_gross: {round(sum_sub_share_gross / nb_of_months, 2)}$, "
-              f"bits_share_gross: {round(sum_bits_share_gross / nb_of_months, 2)}$, "
-              f"prime_sub_share_gross: {round(sum_prime_sub_share_gross / nb_of_months, 2)}$, "
-              f"bb_rev_gross: {round(sum_bb_rev_gross / nb_of_months, 2)}$, "
-              f"bits_developer_share_gross: {round(sum_bits_developer_share_gross / nb_of_months, 2)}$, "
-              f"bits_extension_share_gross: {round(sum_bits_extension_share_gross / nb_of_months, 2)}$, "
-              f"bit_share_ad_gross: {round(sum_bit_share_ad_gross / nb_of_months, 2)}$, "
-              f"fuel_rev_gross: {round(sum_fuel_rev_gross / nb_of_months, 2)}$")
-    if average != average_active_months or FILENAME is not None:
+    print(f"Average month details: ad_share_gross: {round(sum_ad_share_gross / nb_of_months, 2)}$, "
+          f"sub_share_gross: {round(sum_sub_share_gross / nb_of_months, 2)}$, "
+          f"bits_share_gross: {round(sum_bits_share_gross / nb_of_months, 2)}$, "
+          f"prime_sub_share_gross: {round(sum_prime_sub_share_gross / nb_of_months, 2)}$, "
+          f"bb_rev_gross: {round(sum_bb_rev_gross / nb_of_months, 2)}$, "
+          f"bits_developer_share_gross: {round(sum_bits_developer_share_gross / nb_of_months, 2)}$, "
+          f"bits_extension_share_gross: {round(sum_bits_extension_share_gross / nb_of_months, 2)}$, "
+          f"bit_share_ad_gross: {round(sum_bit_share_ad_gross / nb_of_months, 2)}$, "
+          f"fuel_rev_gross: {round(sum_fuel_rev_gross / nb_of_months, 2)}$")
+    if average != average_active_months:
         print(f"Average active month details: ad_share_gross: {round(sum_ad_share_gross / active_months_count, 2)}$, "
               f"sub_share_gross: {round(sum_sub_share_gross / active_months_count, 2)}$, "
               f"bits_share_gross: {round(sum_bits_share_gross / active_months_count, 2)}$, "
