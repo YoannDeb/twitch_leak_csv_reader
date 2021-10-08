@@ -165,4 +165,4 @@ if total > 0:
           f"bits_extension_share_gross: {round(sum_bits_extension_share_gross/nb_of_months, 2)}$, "
           f"bit_share_ad_gross: {round(sum_bit_share_ad_gross/nb_of_months, 2)}$, "
           f"fuel_rev_gross: {round(sum_fuel_rev_gross/nb_of_months, 2)}$")
-print(f"Duration of Analysis: {elapsed_time_formatted(start)}")
+print(f"Duration of treatment: {elapsed_time_formatted(start)}")
