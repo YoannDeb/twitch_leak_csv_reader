@@ -3,7 +3,7 @@ import time
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
-STREAMER_ID = 212955371
+STREAMER_ID = 12345678
 
 # Change year here.
 YEAR = 21
