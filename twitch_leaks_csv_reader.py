@@ -101,7 +101,7 @@ for i in range(FIRST_MONTH, LAST_MONTH + 1):
             if j != 11:
                 sum_salary += int(float(month_results[j])*100)
     results.append(sum_salary)
-    print(month_results)
+
     if len(month_results) > 0:
         sum_ad_share_gross += int(float(month_results[2])*100)
         sum_sub_share_gross += int(float(month_results[3])*100)
@@ -117,11 +117,18 @@ for i in range(FIRST_MONTH, LAST_MONTH + 1):
     print(f"Length of datafile: {len(imported_data)} rows")
     imported_data = []
     print(f"Payment of {CALENDAR[pay_month]} {pay_complete_year} "
-          f"(stream month: {CALENDAR[stream_month]} {stream_complete_year}): {round(sum_salary / 100, 2)}$")
+          f"(stream month: {CALENDAR[stream_month]} {stream_complete_year}): "
+          f"{round(sum_salary / 100, 2)}$")
     if len(month_results) > 0:
-        print(f"Details: ad_share_gross: {month_results[2]}$, sub_share_gross: {month_results[3]}$, bits_share_gross: {month_results[4]}$, "
-              f"prime_sub_share_gross: {month_results[7]}$, bb_rev_gross: {month_results[10]}$, bits_developer_share_gross: {month_results[5]}$, "
-              f"bits_extension_share_gross: {month_results[6]}$, bit_share_ad_gross: {month_results[8]}$, fuel_rev_gross: {month_results[9]}$")
+        print(f"Details: ad_share_gross: {month_results[2]}$, "
+              f"sub_share_gross: {month_results[3]}$, "
+              f"bits_share_gross: {month_results[4]}$, "
+              f"prime_sub_share_gross: {month_results[7]}$, "
+              f"bb_rev_gross: {month_results[10]}$, "
+              f"bits_developer_share_gross: {month_results[5]}$, "
+              f"bits_extension_share_gross: {month_results[6]}$, "
+              f"bit_share_ad_gross: {month_results[8]}$, "
+              f"fuel_rev_gross: {month_results[9]}$")
     print()
 
 total = round(sum(results)/100, 2)
@@ -137,16 +144,24 @@ sum_bits_extension_share_gross = round(sum_bits_extension_share_gross/100, 2)
 sum_bit_share_ad_gross = round(sum_bit_share_ad_gross/100, 2)
 sum_fuel_rev_gross = round(sum_fuel_rev_gross/100, 2)
 
-print(f"Total pay of {CALENDAR[first_month]} to {CALENDAR[pay_month]} {pay_complete_year} ({nb_of_months} months): {total}$")
+print(f"Total pay of {CALENDAR[first_month]} to {CALENDAR[pay_month]} {pay_complete_year} "
+      f"({nb_of_months} months): {total}$")
 print(f"Average month pay: {average}$")
 if total > 0:
-    print(f"Total details: ad_share_gross: {sum_ad_share_gross}$, sub_share_gross: {sum_sub_share_gross}$, bits_share_gross: {sum_bits_share_gross}$, "
+    print(f"Total details: ad_share_gross: {sum_ad_share_gross}$, "
+          f"sub_share_gross: {sum_sub_share_gross}$, "
+          f"bits_share_gross: {sum_bits_share_gross}$, "
           f"prime_sub_share_gross: {sum_prime_sub_share_gross}$, bb_rev_gross: {sum_bb_rev_gross}$, "
-          f"bits_developer_share_gross: {sum_bits_developer_share_gross}$, bits_extension_share_gross: {sum_bits_extension_share_gross}$, "
+          f"bits_developer_share_gross: {sum_bits_developer_share_gross}$, "
+          f"bits_extension_share_gross: {sum_bits_extension_share_gross}$, "
           f"bit_share_ad_gross: {sum_bit_share_ad_gross}$, fuel_rev_gross: {sum_fuel_rev_gross}$")
-    print(f"Average details: ad_share_gross: {round(sum_ad_share_gross/nb_of_months, 2)}$, sub_share_gross: {round(sum_sub_share_gross/nb_of_months, 2)}$, "
-          f"bits_share_gross: {round(sum_bits_share_gross/nb_of_months, 2)}$, prime_sub_share_gross: {round(sum_prime_sub_share_gross/nb_of_months, 2)}$, "
-          f"bb_rev_gross: {round(sum_bb_rev_gross/nb_of_months, 2)}$, bits_developer_share_gross: {round(sum_bits_developer_share_gross/nb_of_months, 2)}$, "
-          f"bits_extension_share_gross: {round(sum_bits_extension_share_gross/nb_of_months, 2)}$, bit_share_ad_gross: {round(sum_bit_share_ad_gross/nb_of_months, 2)}$, "
+    print(f"Average details: ad_share_gross: {round(sum_ad_share_gross/nb_of_months, 2)}$, "
+          f"sub_share_gross: {round(sum_sub_share_gross/nb_of_months, 2)}$, "
+          f"bits_share_gross: {round(sum_bits_share_gross/nb_of_months, 2)}$, "
+          f"prime_sub_share_gross: {round(sum_prime_sub_share_gross/nb_of_months, 2)}$, "
+          f"bb_rev_gross: {round(sum_bb_rev_gross/nb_of_months, 2)}$, "
+          f"bits_developer_share_gross: {round(sum_bits_developer_share_gross/nb_of_months, 2)}$, "
+          f"bits_extension_share_gross: {round(sum_bits_extension_share_gross/nb_of_months, 2)}$, "
+          f"bit_share_ad_gross: {round(sum_bit_share_ad_gross/nb_of_months, 2)}$, "
           f"fuel_rev_gross: {round(sum_fuel_rev_gross/nb_of_months, 2)}$")
 print(f"Duration of Analysis: {elapsed_time_formatted(start)}")
