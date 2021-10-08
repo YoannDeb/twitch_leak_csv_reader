@@ -92,7 +92,6 @@ for i in range(FIRST_MONTH, LAST_MONTH + 1):
             if int(row[0]) == STREAMER_ID:
                 for column in row:
                     month_results.append(column)
-                pass
 
         sum_salary = 0
         # Selects and sums payment columns from original CSV file streamer line excluding indexes 0,1 and 11.
