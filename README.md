@@ -49,6 +49,8 @@ or
 
 ## Launch analysis:
 
+Type in a terminal:
+
 * On linux or macOS:
 
 '''Python3 twitch_leaks_csv_reader.py'''
@@ -56,3 +58,21 @@ or
 * On Windows:
 
 '''Python twitch_leaks_csv_reader.py'''
+
+## Clean csv files:
+
+* You can clean csv files of lines with no revenues with csv_cleaner.py. This will improve treatment time of twitch_leaks_csv_reader.py and space occupied by CSV files.
+
+* Just run it in a terminal with ALL the files (from allrevenues_19_08.csv to allrevenues_21_10.csv) in the same folder.
+
+* Be patient this should take a while (nearly 25 minutes on my computer).
+
+Type in a terminal:
+
+* On linux or macOS:
+
+'''Python3 csv_cleaner.py'''
+
+* On Windows:
+
+'''Python csv_cleaner.py'''
