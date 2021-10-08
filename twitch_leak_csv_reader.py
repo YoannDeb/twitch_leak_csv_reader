@@ -191,10 +191,10 @@ sum_bit_share_ad_gross = round(sum_bit_share_ad_gross / 100, 2)
 sum_fuel_rev_gross = round(sum_fuel_rev_gross / 100, 2)
 
 if ALL_FILES:
-    print(f"Total pay of {CALENDAR[overall_first_month]} {first_year} to {CALENDAR[pay_month]} {last_year} "
+    print(f"Total payout of August 2019 to October 2021 "
           f"({active_months_count} active months over {nb_of_months} months): {total}$")
 else:
-    print(f"Total pay of {CALENDAR[overall_first_month]} to {CALENDAR[pay_month]} {last_year} "
+    print(f"Total payout of {CALENDAR[overall_first_month]} to {CALENDAR[pay_month]} {last_year} "
           f"({active_months_count} active months over {nb_of_months} months): {total}$")
 
 if total > 0:
