@@ -6,7 +6,7 @@ import time
 STREAMER_ID = 12345678
 
 # Change year here.
-YEAR = 20
+YEAR = 21
 
 # Change months range here.
 # Each month is the month of pay, corresponding to the previous month of stream.
@@ -14,7 +14,7 @@ YEAR = 20
 # For the year 2020, range is 1 to 12 (complete year).
 # For the year 2021, range is 1 to 10.
 FIRST_MONTH = 1
-LAST_MONTH = 5
+LAST_MONTH = 10
 
 CALENDAR = {
     "01": "January",
@@ -92,6 +92,7 @@ for i in range(FIRST_MONTH, LAST_MONTH + 1):
             if int(row[0]) == STREAMER_ID:
                 for column in row:
                     month_results.append(column)
+                pass
 
         sum_salary = 0
         # Selects and sums payment columns from original CSV file streamer line excluding indexes 0,1 and 11.
@@ -100,24 +101,27 @@ for i in range(FIRST_MONTH, LAST_MONTH + 1):
             if j != 11:
                 sum_salary += int(float(month_results[j])*100)
     results.append(sum_salary)
-    sum_ad_share_gross += int(float(month_results[2])*100)
-    sum_sub_share_gross += int(float(month_results[3])*100)
-    sum_bits_share_gross += int(float(month_results[4])*100)
-    sum_prime_sub_share_gross += int(float(month_results[7])*100)
-    sum_bb_rev_gross += int(float(month_results[10])*100)
-    sum_bits_developer_share_gross += int(float(month_results[5])*100)
-    sum_bits_extension_share_gross += int(float(month_results[6])*100)
-    sum_bit_share_ad_gross += int(float(month_results[8])*100)
-    sum_fuel_rev_gross += int(float(month_results[9])*100)
+    print(month_results)
+    if len(month_results) > 0:
+        sum_ad_share_gross += int(float(month_results[2])*100)
+        sum_sub_share_gross += int(float(month_results[3])*100)
+        sum_bits_share_gross += int(float(month_results[4])*100)
+        sum_prime_sub_share_gross += int(float(month_results[7])*100)
+        sum_bb_rev_gross += int(float(month_results[10])*100)
+        sum_bits_developer_share_gross += int(float(month_results[5])*100)
+        sum_bits_extension_share_gross += int(float(month_results[6])*100)
+        sum_bit_share_ad_gross += int(float(month_results[8])*100)
+        sum_fuel_rev_gross += int(float(month_results[9])*100)
 
     print(f"Time elapsed: {elapsed_time_formatted(start)}")
     print(f"Length of datafile: {len(imported_data)} rows")
     imported_data = []
     print(f"Payment of {CALENDAR[pay_month]} {pay_complete_year} "
           f"(stream month: {CALENDAR[stream_month]} {stream_complete_year}): {round(sum_salary / 100, 2)}$")
-    print(f"Details: ad_share_gross: {month_results[2]}$, sub_share_gross: {month_results[3]}$, bits_share_gross: {month_results[4]}$, "
-          f"prime_sub_share_gross: {month_results[7]}$, bb_rev_gross: {month_results[10]}$, bits_developer_share_gross: {month_results[5]}$, "
-          f"bits_extension_share_gross: {month_results[6]}$, bit_share_ad_gross: {month_results[8]}$, fuel_rev_gross: {month_results[9]}$")
+    if len(month_results) > 0:
+        print(f"Details: ad_share_gross: {month_results[2]}$, sub_share_gross: {month_results[3]}$, bits_share_gross: {month_results[4]}$, "
+              f"prime_sub_share_gross: {month_results[7]}$, bb_rev_gross: {month_results[10]}$, bits_developer_share_gross: {month_results[5]}$, "
+              f"bits_extension_share_gross: {month_results[6]}$, bit_share_ad_gross: {month_results[8]}$, fuel_rev_gross: {month_results[9]}$")
     print()
 
 total = round(sum(results)/100, 2)
@@ -135,13 +139,14 @@ sum_fuel_rev_gross = round(sum_fuel_rev_gross/100, 2)
 
 print(f"Total pay of {CALENDAR[first_month]} to {CALENDAR[pay_month]} {pay_complete_year} ({nb_of_months} months): {total}$")
 print(f"Average month pay: {average}$")
-print(f"Total details: ad_share_gross: {sum_ad_share_gross}$, sub_share_gross: {sum_sub_share_gross}$, bits_share_gross: {sum_bits_share_gross}$, "
-      f"prime_sub_share_gross: {sum_prime_sub_share_gross}$, bb_rev_gross: {sum_bb_rev_gross}$, "
-      f"bits_developer_share_gross: {sum_bits_developer_share_gross}$, bits_extension_share_gross: {sum_bits_extension_share_gross}$, "
-      f"bit_share_ad_gross: {sum_bit_share_ad_gross}$, fuel_rev_gross: {sum_fuel_rev_gross}$")
-print(f"Average details: ad_share_gross: {round(sum_ad_share_gross/nb_of_months, 2)}$, sub_share_gross: {round(sum_sub_share_gross/nb_of_months, 2)}$, "
-      f"bits_share_gross: {round(sum_bits_share_gross/nb_of_months, 2)}$, prime_sub_share_gross: {round(sum_prime_sub_share_gross/nb_of_months, 2)}$, "
-      f"bb_rev_gross: {round(sum_bb_rev_gross/nb_of_months, 2)}$, bits_developer_share_gross: {round(sum_bits_developer_share_gross/nb_of_months, 2)}$, "
-      f"bits_extension_share_gross: {round(sum_bits_extension_share_gross/nb_of_months, 2)}$, bit_share_ad_gross: {round(sum_bit_share_ad_gross/nb_of_months, 2)}$, "
-      f"fuel_rev_gross: {round(sum_fuel_rev_gross/nb_of_months, 2)}$")
+if total > 0:
+    print(f"Total details: ad_share_gross: {sum_ad_share_gross}$, sub_share_gross: {sum_sub_share_gross}$, bits_share_gross: {sum_bits_share_gross}$, "
+          f"prime_sub_share_gross: {sum_prime_sub_share_gross}$, bb_rev_gross: {sum_bb_rev_gross}$, "
+          f"bits_developer_share_gross: {sum_bits_developer_share_gross}$, bits_extension_share_gross: {sum_bits_extension_share_gross}$, "
+          f"bit_share_ad_gross: {sum_bit_share_ad_gross}$, fuel_rev_gross: {sum_fuel_rev_gross}$")
+    print(f"Average details: ad_share_gross: {round(sum_ad_share_gross/nb_of_months, 2)}$, sub_share_gross: {round(sum_sub_share_gross/nb_of_months, 2)}$, "
+          f"bits_share_gross: {round(sum_bits_share_gross/nb_of_months, 2)}$, prime_sub_share_gross: {round(sum_prime_sub_share_gross/nb_of_months, 2)}$, "
+          f"bb_rev_gross: {round(sum_bb_rev_gross/nb_of_months, 2)}$, bits_developer_share_gross: {round(sum_bits_developer_share_gross/nb_of_months, 2)}$, "
+          f"bits_extension_share_gross: {round(sum_bits_extension_share_gross/nb_of_months, 2)}$, bit_share_ad_gross: {round(sum_bit_share_ad_gross/nb_of_months, 2)}$, "
+          f"fuel_rev_gross: {round(sum_fuel_rev_gross/nb_of_months, 2)}$")
 print(f"Duration of Analysis: {elapsed_time_formatted(start)}")
