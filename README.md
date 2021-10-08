@@ -53,11 +53,11 @@ Type in a terminal:
 
 * On linux or macOS:
 
-'''Python3 twitch_leaks_csv_reader.py'''
+```Python3 twitch_leaks_csv_reader.py```
 
 * On Windows:
 
-'''Python twitch_leaks_csv_reader.py'''
+```Python twitch_leaks_csv_reader.py```
 
 ## Clean csv files:
 
@@ -71,8 +71,8 @@ Type in a terminal:
 
 * On linux or macOS:
 
-'''Python3 csv_cleaner.py'''
+```Python3 csv_cleaner.py```
 
 * On Windows:
 
-'''Python csv_cleaner.py'''
+```Python csv_cleaner.py```
