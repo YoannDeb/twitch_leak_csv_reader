@@ -18,7 +18,7 @@ Shows twitch pay for any streamer from Twitch leaked CSV files.
 ### Analyse a period in a year:
 
 * Set ALL_FILES value to False
-* The default year is 2021, first month is 1, last month is 10.
+* The default year is 2021, the first month is 1, the last month is 10.
 * You can replace the year of analysis, the first month and last month by changing the corresponding constants in twitch_leak_csv_reader.py.
 * Those constants are named YEAR, FIRST_MONTH, LAST_MONTH.
 * YEAR must be between 19 and 21.
