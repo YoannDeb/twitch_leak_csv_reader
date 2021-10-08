@@ -1,5 +1,5 @@
 # twitch_leak_csv_reader
-Shows twitch pay for any streamer in a year from Twitch leaked CSV files.
+Shows twitch pay for any streamer from Twitch leaked CSV files.
 
 ## Data format:
 
