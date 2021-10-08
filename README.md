@@ -1,4 +1,4 @@
-# twitch_leaks_csv_reader
+# twitch_leak_csv_reader
 Shows twitch pay for any streamer in a year from Twitch leaked CSV files.
 
 ## Data format:
@@ -7,13 +7,13 @@ Shows twitch pay for any streamer in a year from Twitch leaked CSV files.
 
 * One is needed from each month (seems to be redundant), you can maybe take the slightly bigger one but from my few tests it didn't make any difference...
 
-* Decompress files and rename them allrevenues_yy_mm.csv (for exemple allrevenues_21_01.csv for january 2021) and place it in the same folder than twitch_leaks_csv_reader.py.
+* Decompress files and rename them allrevenues_yy_mm.csv (for exemple allrevenues_21_01.csv for january 2021) and place it in the same folder as twitch_leaks_csv_reader.py.
 
 ## Changing period analyzed :
 
 * The default year is 2021, first month is 1, last month is 10.
 
-* You can replace the year of analysis, the first month and last month by changing the corresponding constants in twitch_leaks_csv_reader.py.
+* You can replace the year of analysis, the first month and last month by changing the corresponding constants in twitch_leak_csv_reader.py.
 
 * Those constants are named YEAR, FIRST_MONTH, LAST_MONTH.
 
@@ -31,7 +31,7 @@ Shows twitch pay for any streamer in a year from Twitch leaked CSV files.
 
 * You can find ID of the streamer with his username using a site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ .
 
-* Replace constant STREAMER_ID value at the beginning of twitch_leaks_csv_reader.py with your favorite text editor to the one of the streamer you want. (exemple STREAMER_ID = 12345678)
+* Replace constant STREAMER_ID value at the beginning of twitch_leak_csv_reader.py with your favorite text editor to the one of the streamer you want. (exemple STREAMER_ID = 12345678)
 
 ## Requirements:
 
@@ -53,15 +53,15 @@ Type in a terminal:
 
 * On linux or macOS:
 
-```Python3 twitch_leaks_csv_reader.py```
+```Python3 twitch_leak_csv_reader.py```
 
 * On Windows:
 
-```Python twitch_leaks_csv_reader.py```
+```Python twitch_leak_csv_reader.py```
 
 ## Clean csv files:
 
-* You can clean csv files of lines with no revenues with csv_cleaner.py. This will improve treatment time of twitch_leaks_csv_reader.py and space occupied by CSV files.
+* You can clean csv files of lines with no revenues with csv_cleaner.py. This will improve treatment time of twitch_leak_csv_reader.py and space occupied by CSV files.
 
 * Just run it in a terminal with ALL the files (from allrevenues_19_08.csv to allrevenues_21_10.csv) in the same folder.
 
