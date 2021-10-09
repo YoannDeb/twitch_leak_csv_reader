@@ -118,17 +118,19 @@ for year in year_range:
         print(f"Processing with {CALENDAR[pay_month]} {pay_complete_year}, please wait...")
         with open(filename) as file:
             imported_data = extract_csv(file)
-            for row in imported_data:
-                if int(row[0]) == STREAMER_ID:
-                    for column in row:
-                        month_results.append(column)
-
-            sum_salary = 0
-            # Selects and sums payment columns from original CSV file streamer line excluding indexes 0,1 and 11.
-            # Index 0 is user_id, index 1 is payout_entity_id, index 11 is report_date.
-            for j in range(2, len(month_results)):
-                if j != 11:
-                    sum_salary += int(float(month_results[j])*100)
+        length_imported_data = len(imported_data)
+        for row in imported_data:
+            if int(row[0]) == STREAMER_ID:
+                for column in row:
+                    month_results.append(column)
+                break
+        imported_data = []
+        sum_salary = 0
+        # Selects and sums payment columns from original CSV file streamer line excluding indexes 0,1 and 11.
+        # Index 0 is user_id, index 1 is payout_entity_id, index 11 is report_date.
+        for j in range(2, len(month_results)):
+            if j != 11:
+                sum_salary += int(float(month_results[j])*100)
         if sum_salary > 0:
             active_months_count += 1
             results.append(sum_salary)
@@ -145,8 +147,7 @@ for year in year_range:
             sum_fuel_rev_gross += int(float(month_results[9])*100)
 
         print(f"Time elapsed: {elapsed_time_formatted(start)}")
-        print(f"Length of datafile: {len(imported_data)} rows.")
-        imported_data = []
+        print(f"Length of datafile: {length_imported_data} rows.")
         print(f"Payout of {CALENDAR[pay_month]} {pay_complete_year} "
               f"(stream month: {CALENDAR[stream_month]} {stream_complete_year}): "
               f"{round(sum_salary / 100, 2)}$")
