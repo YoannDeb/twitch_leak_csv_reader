@@ -44,10 +44,10 @@ raw_results = []
 print(f"Processing with {FILENAME}, please wait...")
 with open(FILENAME) as file:
     imported_data = extract_csv(file)
-    for row in imported_data:
-        if int(row[0]) == STREAMER_ID:
-            nb_of_months += 1
-            raw_results.append(row)
+for row in imported_data:
+    if int(row[0]) == STREAMER_ID:
+        nb_of_months += 1
+        raw_results.append(row)
 imported_data = []
 sum_salary = 0
 # Selects and sums payment columns from original CSV file streamer line excluding indexes 0,1 and 11.
