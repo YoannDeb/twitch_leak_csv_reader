@@ -30,7 +30,7 @@ Shows twitch pay for any streamer from Twitch leaked CSV files.
 ## Changing streamer analyzed:
 
 * You can find ID of the streamer with his username using a site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ .
-* Replace constant STREAMER_ID value at the beginning of twitch_leak_csv_reader.py with your favorite text editor to the one of the streamer you want. (exemple STREAMER_ID = 12345678)
+* Replace constant STREAMER_ID value at the beginning of twitch_leak_csv_reader.py with your favorite text editor to the one of the streamer you want. (example STREAMER_ID = 12345678)
 
 ## Requirements:
 
@@ -73,3 +73,19 @@ Type in a terminal:
 * On Windows:
 
 ```Python csv_cleaner.py```
+
+## Read user compilation unique file
+
+* In case you have a compilation file with potentially several times the same user, you can use twitch_leak_csv_reader_from_filename.py
+
+* Just modify constants USER_ID and FILENAME at the beginning of the file before launching.
+
+Example:
+```
+USER_ID = 12345678
+FILENAME = test.csv
+```
+
+* Therefore you won't have month names anymore, you will still have month and active month average
+
+
