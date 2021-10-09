@@ -3,10 +3,10 @@ import time
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
-STREAMER_ID = 49632767
+STREAMER_ID = 12345678
 
 # Specify a file name for specific cases, don't forget to put ""
-# FILENAME = "all_revenues_19_08.csv"
+# Example : FILENAME = "all_revenues_19_08.csv"
 FILENAME = "all_revenues_21_10.csv"
 
 
