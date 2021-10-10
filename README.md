@@ -4,7 +4,7 @@ Shows twitch pay for any streamer from Twitch leaked CSV files.
 ## Data format:
 
 * Needs csv files from twitch leaks (in twitch-leaks-part-one/twitch-payouts/all_revenues/).
-* One is needed from each month (seems to be redundant), you can maybe take the slightly bigger one but from my few tests it didn't make any difference...
+* One is needed from each month, take the last one (greater number as folder name) as it is slightly bigger than the others.
 * Decompress files and rename them allrevenues_yy_mm.csv (for exemple allrevenues_21_01.csv for january 2021) and place it in the same folder as twitch_leaks_csv_reader.py.
 
 ## Changing period analyzed :
