@@ -1,10 +1,10 @@
-import tablib
+import csv
 import time
 import pathlib
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
-STREAMER_ID = 12345678
+STREAMER_ID = 49632767
 
 # If true, all files from all_revenues_19_08 to all_revenues_21_10 will be analyzed.
 # YEAR, FIRST_MONTH and LAST_MONTH will be ignored
@@ -46,10 +46,6 @@ def elapsed_time_formatted(begin_time):
     return time.strftime(
         "%H:%M:%S", (time.gmtime(time.perf_counter() - begin_time))
     )
-
-
-def extract_csv(data_file):
-    return tablib.Dataset().load(data_file.read(), format='csv', headers=True)
 
 
 start = time.perf_counter()
@@ -119,15 +115,15 @@ for year in year_range:
         filename = f"all_revenues_{year}_{pay_month}.csv"
 
         print(f"Processing with {CALENDAR[pay_month]} {pay_complete_year}, please wait...")
-        with open(pathlib.Path.cwd() / 'data' / filename) as file:
-            imported_data = extract_csv(file)
-        length_imported_data = len(imported_data)
-        for row in imported_data:
-            if int(row[0]) == STREAMER_ID:
-                for column in row:
-                    month_results.append(column)
-                break
-        imported_data = []
+        with open(pathlib.Path.cwd() / 'data' / filename, 'r', encoding='utf-8') as f:
+            imported_data = csv.reader(f)
+            imported_data.__next__()
+            for row in imported_data:
+                if int(row[0]) == STREAMER_ID:
+                    for column in row:
+                        month_results.append(column)
+                    break
+        # imported_data = []
         sum_salary = 0
         # Selects and sums payment columns from original CSV file streamer line excluding indexes 0,1 and 11.
         # Index 0 is user_id, index 1 is payout_entity_id, index 11 is report_date.
@@ -150,7 +146,6 @@ for year in year_range:
             sum_fuel_rev_gross += int(float(month_results[9])*100)
 
         print(f"Time elapsed: {elapsed_time_formatted(start)}")
-        print(f"Length of datafile: {length_imported_data} rows.")
         print(f"Payout of {CALENDAR[pay_month]} {pay_complete_year} "
               f"(stream month: {CALENDAR[stream_month]} {stream_complete_year}): "
               f"{round(sum_salary / 100, 2)}$")
