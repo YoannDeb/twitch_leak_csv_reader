@@ -5,7 +5,7 @@ Shows twitch pay for any streamer from Twitch leaked CSV files.
 
 * Needs csv files from twitch leaks (in twitch-leaks-part-one/twitch-payouts/all_revenues/).
 * One is needed from each month (seems to be redundant), you can maybe take the slightly bigger one but from my few tests it didn't make any difference...
-* Decompress files and rename them allrevenues_yy_mm.csv (for exemple allrevenues_21_01.csv for january 2021) and place it in the same folder as twitch_leaks_csv_reader.py.
+* Decompress files and rename them allrevenues_yy_mm.csv (for exemple allrevenues_21_01.csv for january 2021) and place them in a folder named data.
 
 ## Changing period analyzed :
 
@@ -58,21 +58,21 @@ Type in a terminal:
 
 ## Clean csv files:
 
-* You can clean csv files of lines with no revenues with csv_cleaner.py. This will improve treatment time of twitch_leak_csv_reader.py and space occupied by CSV files.
+* You can clean csv files of lines with no revenues with csv_setup.py. This will improve treatment time of twitch_leak_csv_reader.py and space occupied by CSV files.
 
-* Just run it in a terminal with ALL the files (from allrevenues_19_08.csv to allrevenues_21_10.csv) in the same folder.
+* Just run it in a terminal with ALL the files (from allrevenues_19_08.csv to allrevenues_21_10.csv) in data folder.
 
-* Be patient this should take a while (nearly 25 minutes on my computer).
+* Be patient this can take few minutes.
 
 Type in a terminal:
 
 * On linux or macOS:
 
-```Python3 csv_cleaner.py```
+```Python3 csv_setup.py```
 
 * On Windows:
 
-```Python csv_cleaner.py```
+```Python csv_setup.py```
 
 ## Read user compilation unique file
 
@@ -86,6 +86,6 @@ USER_ID = 12345678
 FILENAME = test.csv
 ```
 
-* Therefore you won't have month names anymore, you will still have month and active month average
+* Therefore you won't have month names anymore, you will still have month and active month average.
 
 
