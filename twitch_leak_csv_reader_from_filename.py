@@ -1,5 +1,6 @@
-import tablib
+import csv
 import time
+import pathlib
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
@@ -21,10 +22,6 @@ def elapsed_time_formatted(begin_time):
     )
 
 
-def extract_csv(data_file):
-    return tablib.Dataset().load(data_file.read(), format='csv', headers=True)
-
-
 start = time.perf_counter()
 active_months_count = 0
 nb_of_months = 0
@@ -42,14 +39,16 @@ sum_fuel_rev_gross = 0
 raw_results = []
 
 print(f"Processing with {FILENAME}, please wait...")
-with open(FILENAME) as file:
-    imported_data = extract_csv(file)
-for row in imported_data:
-    if int(row[0]) == STREAMER_ID:
-        nb_of_months += 1
-        raw_results.append(row)
-imported_data = []
+with open(pathlib.Path.cwd() / 'data' / FILENAME, 'r', encoding='utf-8') as f:
+    imported_data = csv.reader(f)
+    imported_data.__next__()
+    for row in imported_data:
+        if int(row[0]) == STREAMER_ID:
+            nb_of_months += 1
+            raw_results.append(row)
+
 sum_salary = 0
+
 # Selects and sums payment columns from original CSV file streamer line excluding indexes 0,1 and 11.
 # Index 0 is user_id, index 1 is payout_entity_id, index 11 is report_date.
 for month_results in raw_results:
