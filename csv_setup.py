@@ -33,7 +33,7 @@ def extract_and_clean_csv(file_name):
     with open(pathlib.Path.cwd() / 'data' / file_name, 'r', encoding='utf-8') as f:
         content = csv.reader(f)
         cleaned_csv = []
-        header = True
+        content.__next__()
         for row in content:
             if header:
                 cleaned_csv.append(row)
