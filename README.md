@@ -34,15 +34,8 @@ Shows twitch pay for any streamer from Twitch leaked CSV files.
 
 ## Requirements:
 
-* You need tablib and python3
+* You need python3
 * You can install python 3 from official site : https://www.python.org/
-* To install tablib use one of his command (you may consider doing a virtual environment with pipenv for example):
-
-```pip install -r requirements.txt```
-
-or
-
-```pip install tablib```
 
 ## Launch analysis:
 
@@ -60,7 +53,7 @@ Type in a terminal:
 
 * You can clean csv files of lines with no revenues with csv_setup.py. This will improve treatment time of twitch_leak_csv_reader.py and space occupied by CSV files.
 
-* Just run it in a terminal with ALL the files (from allrevenues_19_08.csv to allrevenues_21_10.csv) in data folder.
+* Just run it in a terminal with ALL the files (from allrevenues_19_08.csv to allrevenues_21_10.csv) in the `data` folder.
 
 * Be patient this can take few minutes.
 
