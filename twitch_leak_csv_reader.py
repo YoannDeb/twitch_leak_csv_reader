@@ -1,5 +1,6 @@
 import tablib
 import time
+import pathlib
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
@@ -17,7 +18,7 @@ YEAR = 21
 # For the year 2019, range is 8 to 12.
 # For the year 2020, range is 1 to 12 (complete year).
 # For the year 2021, range is 1 to 10.
-FIRST_MONTH = 1
+FIRST_MONTH = 8
 LAST_MONTH = 10
 
 CALENDAR = {
@@ -65,8 +66,6 @@ sum_bits_extension_share_gross = 0
 sum_bit_share_ad_gross = 0
 sum_fuel_rev_gross = 0
 
-first_month = 1
-last_month = 1
 
 if not ALL_FILES:
     year_range = range(YEAR, YEAR + 1)
@@ -78,15 +77,19 @@ else:
     last_year = "2021"
 
 for year in year_range:
-    if year == 19:
-        first_month = 8
-        last_month = 12
-    elif year == 20:
-        first_month = 1
-        last_month = 12
-    elif year == 21:
-        first_month = 1
-        last_month = 10
+    if ALL_FILES:
+        if year == 19:
+            first_month = 8
+            last_month = 12
+        elif year == 20:
+            first_month = 1
+            last_month = 12
+        elif year == 21:
+            first_month = 1
+            last_month = 10
+    else:
+        first_month = FIRST_MONTH
+        last_month = LAST_MONTH
 
     for i in range(first_month, last_month + 1):
         month_results = []
@@ -116,7 +119,7 @@ for year in year_range:
         filename = f"all_revenues_{year}_{pay_month}.csv"
 
         print(f"Processing with {CALENDAR[pay_month]} {pay_complete_year}, please wait...")
-        with open(filename) as file:
+        with open(pathlib.Path.cwd() / 'data' / filename) as file:
             imported_data = extract_csv(file)
         length_imported_data = len(imported_data)
         for row in imported_data:
