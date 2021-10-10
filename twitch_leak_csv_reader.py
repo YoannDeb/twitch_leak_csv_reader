@@ -4,7 +4,7 @@ import pathlib
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
-STREAMER_ID = 49632767
+STREAMER_ID = 12345678
 
 # If true, all files from all_revenues_19_08 to all_revenues_21_10 will be analyzed.
 # YEAR, FIRST_MONTH and LAST_MONTH will be ignored
