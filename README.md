@@ -1,13 +1,38 @@
 # twitch_leak_csv_reader
 Shows twitch pay for any streamer from Twitch leaked CSV files.
 
-## Data format:
 
-* Needs csv files from twitch leaks (in twitch-leaks-part-one/twitch-payouts/all_revenues/).
-* One is needed from each month (seems to be redundant), you can maybe take the slightly bigger one but from my few tests it didn't make any difference...
-* Decompress files and rename them allrevenues_yy_mm.csv (for exemple allrevenues_21_01.csv for january 2021) and place them in a folder named data.
+## Requirements:
+
+* You need python3 (you can install python 3 from official site : https://www.python.org/)
+* The original Twitch-payouts folder from the twitch leaks part one.
+
+## Import and shrink csv files:
+
+* This will import, rename and optionally shrink original gz files into a data folder.
+* Original Twitch-payouts folder must be at the root of the project.
+* Choose import and shrink or just import.
+* Shrinking will delete lines with no revenue, and speed up the parsing process.
+* You can also shrink already imported files.
+
+Type in a terminal:
+
+* On linux or macOS:
+
+```Python3 csv_setup.py```
+
+* On Windows:
+
+```Python csv_setup.py```
+
+## Setting analyzed streamer:
+
+* You can find ID of the streamer with his username using a site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ .
+* Replace constant STREAMER_ID value at the beginning of twitch_leak_csv_reader.py with your favorite text editor to the one of the streamer you want. (example STREAMER_ID = 12345678)
 
 ## Changing period analyzed :
+
+By default it will parse all files
 
 ### Analyze all files:
 
@@ -27,15 +52,6 @@ Shows twitch pay for any streamer from Twitch leaked CSV files.
 * For the year 2021, range is 1 to 10.
 * Each month is the month of pay, corresponding to the previous month of stream.
 
-## Changing streamer analyzed:
-
-* You can find ID of the streamer with his username using a site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ .
-* Replace constant STREAMER_ID value at the beginning of twitch_leak_csv_reader.py with your favorite text editor to the one of the streamer you want. (example STREAMER_ID = 12345678)
-
-## Requirements:
-
-* You need python3
-* You can install python 3 from official site : https://www.python.org/
 
 ## Launch analysis:
 
@@ -49,25 +65,8 @@ Type in a terminal:
 
 ```Python twitch_leak_csv_reader.py```
 
-## Clean csv files:
 
-* You can clean csv files of lines with no revenues with csv_setup.py. This will improve treatment time of twitch_leak_csv_reader.py and space occupied by CSV files.
-
-* Just run it in a terminal with ALL the files (from allrevenues_19_08.csv to allrevenues_21_10.csv) in the `data` folder.
-
-* Be patient this can take few minutes.
-
-Type in a terminal:
-
-* On linux or macOS:
-
-```Python3 csv_setup.py```
-
-* On Windows:
-
-```Python csv_setup.py```
-
-## Read user compilation unique file
+## (bêta) Read user info in unique compilation file
 
 * In case you have a compilation file with potentially several times the same user, you can use twitch_leak_csv_reader_from_filename.py
 
@@ -79,6 +78,6 @@ USER_ID = 12345678
 FILENAME = test.csv
 ```
 
-* Therefore you won't have month names anymore, you will still have month and active month average.
+* Therefore, you won't have month names anymore, you will still have month and active month average.
 
 
