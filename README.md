@@ -12,8 +12,9 @@ Shows twitch pay for any streamer from Twitch leaked CSV files.
 * This will import, rename and optionally shrink original gz files into a data folder.
 * Original Twitch-payouts folder must be at the root of the project.
 * Choose import and shrink or just import.
-* Shrinking will delete lines with no revenue, and speed up the parsing process.
+* Shrinking will delete lines with no revenue, and significantly speed up the parsing process.
 * You can also shrink already imported files.
+* Once imported you can delete or move the original Twitch-payouts folder
 
 Type in a terminal:
 
