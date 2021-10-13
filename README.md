@@ -1,5 +1,6 @@
 # twitch_leak_csv_reader
-Shows twitch pay for any streamer from Twitch leaked CSV files.
+Shows twitch detailled payout for any streamer from Twitch leaked CSV files.
+This program executes locally in console.
 
 
 ## Requirements:
