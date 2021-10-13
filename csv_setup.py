@@ -23,7 +23,7 @@ def create_csv(filename, csv_content):
     """
     os.makedirs(pathlib.Path.cwd() / 'data', exist_ok=True)
     with open(
-            pathlib.Path.cwd() / 'data' / filename, 'w', newline='', encoding='utf-8-sig'
+            pathlib.Path.cwd() / 'data' / filename, 'w', newline='', encoding='utf-8'
     ) as g:
         for row in csv_content:
             csv.writer(g).writerow(row)
@@ -37,9 +37,8 @@ def read_and_clean_csv(year, month):
     filename = f"all_revenues_{year}_{month}.csv"
 
     print(f"Cleaning {filename}, please wait...")
-    print()
 
-    with open(pathlib.Path.cwd() / 'data' / filename, 'r', encoding='utf-8') as f:
+    with open(pathlib.Path.cwd() / 'data' / 'csv' / filename, 'r', encoding='utf-8') as f:
         content = csv.reader(f)
         cleaned_csv = []
         header = True
@@ -66,8 +65,7 @@ def export_gzip_to_csv(year, month):
     folder_year = f"20{year}"
     filename = f"all_revenues_{year}_{month}.csv"
 
-    print(f"Importing {filename}, please wait...")
-    print()
+    print(f"Creating {filename}, please wait...")
 
     if folder_year == "2019" and month == "08":
         final_folder = "28"
@@ -122,7 +120,7 @@ def main():
                     export_gzip_to_csv(year, month)
                 except FileNotFoundError as e:
                     print(f"Couldn't find all_revenues.csv.gz for {month}/20{year}")
-                    print("Please verify twitch_payouts folder is in the good place")
+                    print("Please check if 'twitch_payouts' folder is in the good place")
                     print(e)
                 try:
                     read_and_clean_csv(year, month)
@@ -134,7 +132,7 @@ def main():
                     export_gzip_to_csv(year, month)
                 except FileNotFoundError as e:
                     print(f"Couldn't find all_revenues.csv.gz for {month}/20{year}")
-                    print("Please verify twitch_payouts folder is in the good place")
+                    print("Please check if 'twitch_payouts' folder is in the good place")
                     print(e)
             elif choice == "3":
                 try:
@@ -143,7 +141,7 @@ def main():
                     print("Files not found, make sure they are imported and in the good place")
                     print(e)
 
-    print(f"Csv successfully imported in {elapsed_time_formatted(start)}")
+    print(f"All CSVs successfully imported. Process time: {elapsed_time_formatted(start)}")
 
 
 if __name__ == "__main__":
