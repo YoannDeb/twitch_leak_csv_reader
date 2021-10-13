@@ -12,9 +12,6 @@ import requests
 TWITCH_ID = "Insert here your twitch app id"
 TWITCH_SECRET = "Insert here your twitch app secret"
 
-TWITCH_ID = "t2upeoodwvshkxalek74kf9kuznuah"
-TWITCH_SECRET = "3nz28ny2cj7dui7z2tu817upjmja0o"
-
 # If true, all files from all_revenues_19_08 to all_revenues_21_10 will be analyzed.
 # YEAR, FIRST_MONTH and LAST_MONTH will be ignored
 ALL_FILES = True
