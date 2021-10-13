@@ -7,6 +7,8 @@ This program executes locally in console.
 
 * You need python3 (you can install python 3 from official site : https://www.python.org/)
 * The original Twitch-payouts folder from the twitch leaks part one.
+* requests module (you may consider running a virtuel environment like venv, see https://docs.python.org/3/library/venv.html:
+    ```pip install requirements```
 
 ## Import and shrink csv files:
 
@@ -75,6 +77,8 @@ Type in a terminal:
 * On Windows:
 
 ```Python twitch_leak_csv_reader.py```
+
+Then choose your option in the menu, and enter an ID or username.
 
 
 ## (bêta) Read user info in unique compilation file
