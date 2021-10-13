@@ -1,10 +1,17 @@
 import csv
 import time
 import pathlib
+import json
+
+import requests
 
 # Change streamer id here.
 # See https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ to find ID from username.
-STREAMER_ID = 12345678
+# STREAMER_ID = 71092938
+
+# Needed for retrieving info from username (choice 2)
+TWITCH_ID = "Insert here your twitch app id"
+TWITCH_SECRET = "Insert here your twitch app secret"
 
 # If true, all files from all_revenues_19_08 to all_revenues_21_10 will be analyzed.
 # YEAR, FIRST_MONTH and LAST_MONTH will be ignored
@@ -37,6 +44,27 @@ CALENDAR = {
 }
 
 
+def get_access_token(twitch_id, twitch_secret):
+    r = requests.post("https://id.twitch.tv/oauth2/token?client_id=" + twitch_id +
+                      '&client_secret=' + twitch_secret + '&grant_type=client_credentials')
+    rjson = json.loads(r.text)
+    return rjson['access_token']
+
+
+def get_json_from_api(username, twitch_access_token):
+    response = requests.get("https://api.twitch.tv/helix/users?login=" + username.lower(), headers={"Client-ID": TWITCH_ID, 'Authorization': 'Bearer ' + twitch_access_token})
+    return json.loads(response.text)
+
+
+def get_info_from_json(info_json):
+    streamer_id = int(info_json['data'][0]["id"])
+    # display_name = info_json['data'][0]["display_name"]
+    # logo = info_json['data'][0]["profile_image_url"]
+    # bio = info_json['data'][0]["description"]
+    # created = info_json['data'][0]["created_at"]
+    return streamer_id
+
+
 def elapsed_time_formatted(begin_time):
     """
     Calculates difference between begin_time and actual time,
@@ -47,6 +75,47 @@ def elapsed_time_formatted(begin_time):
         "%H:%M:%S", (time.gmtime(time.perf_counter() - begin_time))
     )
 
+
+print()
+print("Twitch leak csv reader - See README.md for more info and config")
+print()
+print("1: Search with Twitch ID (Use an external site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/")
+print("2: Search with Twitch username (You must setup TWITCH_ID and TWITCH_SECRET from a twitch app from https://dev.twitch.tv at the beginning of the file.")
+print()
+
+
+choice = ""
+while True:
+    if choice != "1":
+        choice = input("Please enter your choice: ")
+    if choice == "1":
+        streamer_id = input("Please enter a Twitch streamer's ID: ")
+        try:
+            streamer_id = int(streamer_id)
+            print()
+            break
+        except Exception as e:
+            pass
+    elif choice == "2":
+        print()
+        streamer_id = ""
+        while not streamer_id:
+            info_json = {}
+            try:
+                chosen_username = input("Please enter a Twitch streamer's username: ")
+                twitch_auth_token = get_access_token(TWITCH_ID, TWITCH_SECRET)
+                print("Retrieving streamer's ID")
+                info_json = get_json_from_api(chosen_username, twitch_auth_token)
+                streamer_id = get_info_from_json(info_json)
+                print()
+            except Exception as e:
+                print("Something went wrong... Could be a non existing username, or a problem contacting API")
+                print("Please check your settings")
+                if info_json:
+                    print(f"API response: {info_json}")
+                print(f"returned error: {e}")
+        break
+    print("This is not a valid entry :-(")
 
 start = time.perf_counter()
 active_months_count = 0
@@ -63,14 +132,14 @@ sum_bit_share_ad_gross = 0
 sum_fuel_rev_gross = 0
 
 
-if not ALL_FILES:
-    year_range = range(YEAR, YEAR + 1)
-    first_year = "20" + str(YEAR)
-    last_year = first_year
-else:
+if ALL_FILES:
     year_range = range(19, 22)
     first_year = "2019"
     last_year = "2021"
+else:
+    year_range = range(YEAR, YEAR + 1)
+    first_year = "20" + str(YEAR)
+    last_year = first_year
 
 for year in year_range:
     if ALL_FILES:
@@ -119,7 +188,7 @@ for year in year_range:
             imported_data = csv.reader(f)
             imported_data.__next__()
             for row in imported_data:
-                if int(row[0]) == STREAMER_ID:
+                if int(row[0]) == streamer_id:
                     for column in row:
                         month_results.append(column)
                     break
@@ -161,23 +230,22 @@ for year in year_range:
                   f"fuel_rev_gross: {month_results[9]}$")
         print()
 
-if active_months_count == 0:
-    active_months_count = 1
-if nb_of_months == 0:
-    nb_of_months = 1
+if active_months_count > 0:
+    total = round(sum(results) / 100, 2)
+    average = round(total / nb_of_months, 2)
+    average_active_months = round(total / active_months_count, 2)
+    sum_ad_share_gross = round(sum_ad_share_gross / 100, 2)
+    sum_sub_share_gross = round(sum_sub_share_gross / 100, 2)
+    sum_bits_share_gross = round(sum_bits_share_gross / 100, 2)
+    sum_prime_sub_share_gross = round(sum_prime_sub_share_gross / 100, 2)
+    sum_bb_rev_gross = round(sum_bb_rev_gross / 100, 2)
+    sum_bits_developer_share_gross = round(sum_bits_developer_share_gross / 100, 2)
+    sum_bits_extension_share_gross = round(sum_bits_extension_share_gross / 100, 2)
+    sum_bit_share_ad_gross = round(sum_bit_share_ad_gross / 100, 2)
+    sum_fuel_rev_gross = round(sum_fuel_rev_gross / 100, 2)
+else:
+    total = 0
 
-total = round(sum(results) / 100, 2)
-average = round(total / nb_of_months, 2)
-average_active_months = round(total / active_months_count, 2)
-sum_ad_share_gross = round(sum_ad_share_gross / 100, 2)
-sum_sub_share_gross = round(sum_sub_share_gross / 100, 2)
-sum_bits_share_gross = round(sum_bits_share_gross / 100, 2)
-sum_prime_sub_share_gross = round(sum_prime_sub_share_gross / 100, 2)
-sum_bb_rev_gross = round(sum_bb_rev_gross / 100, 2)
-sum_bits_developer_share_gross = round(sum_bits_developer_share_gross / 100, 2)
-sum_bits_extension_share_gross = round(sum_bits_extension_share_gross / 100, 2)
-sum_bit_share_ad_gross = round(sum_bit_share_ad_gross / 100, 2)
-sum_fuel_rev_gross = round(sum_fuel_rev_gross / 100, 2)
 
 if ALL_FILES:
     print(f"Total payout of August 2019 to October 2021 "
