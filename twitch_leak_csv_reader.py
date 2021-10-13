@@ -1,4 +1,3 @@
-import csv
 import time
 import pathlib
 import json
@@ -12,6 +11,9 @@ import requests
 # Needed for retrieving info from username (choice 2)
 TWITCH_ID = "Insert here your twitch app id"
 TWITCH_SECRET = "Insert here your twitch app secret"
+
+TWITCH_ID = "t2upeoodwvshkxalek74kf9kuznuah"
+TWITCH_SECRET = "3nz28ny2cj7dui7z2tu817upjmja0o"
 
 # If true, all files from all_revenues_19_08 to all_revenues_21_10 will be analyzed.
 # YEAR, FIRST_MONTH and LAST_MONTH will be ignored
@@ -57,7 +59,7 @@ def get_json_from_api(username, twitch_access_token):
 
 
 def get_info_from_json(info_json):
-    streamer_id = int(info_json['data'][0]["id"])
+    streamer_id = info_json['data'][0]["id"]
     # display_name = info_json['data'][0]["display_name"]
     # logo = info_json['data'][0]["profile_image_url"]
     # bio = info_json['data'][0]["description"]
@@ -79,34 +81,36 @@ def elapsed_time_formatted(begin_time):
 print()
 print("Twitch leak csv reader - See README.md for more info and config")
 print()
-print("1: Search with Twitch ID (Use an external site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/")
-print("2: Search with Twitch username (You must setup TWITCH_ID and TWITCH_SECRET from a twitch app from https://dev.twitch.tv at the beginning of the file.")
+print("1: Search with Twitch username (You must setup TWITCH_ID and TWITCH_SECRET from a twitch app from https://dev.twitch.tv at the beginning of the file.")
+print("2: Search with Twitch ID (Use an external site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/")
 print()
 
 
 choice = ""
 while True:
-    if choice != "1":
+    if choice != "2":
         choice = input("Please enter your choice: ")
-    if choice == "1":
+    if choice == "2":
         streamer_id = input("Please enter a Twitch streamer's ID: ")
         try:
-            streamer_id = int(streamer_id)
+            int(streamer_id)
             print()
             break
         except Exception as e:
             pass
-    elif choice == "2":
+    elif choice == "1":
         print()
         streamer_id = ""
         while not streamer_id:
             info_json = {}
             try:
-                chosen_username = input("Please enter a Twitch streamer's username: ")
+                chosen_username = input("Please enter a Twitch streamer's username: ").lower()
                 twitch_auth_token = get_access_token(TWITCH_ID, TWITCH_SECRET)
                 print("Retrieving streamer's ID")
                 info_json = get_json_from_api(chosen_username, twitch_auth_token)
                 streamer_id = get_info_from_json(info_json)
+                print()
+                print(f"Search begining with ID {streamer_id}")
                 print()
             except Exception as e:
                 print("Something went wrong... Could be a non existing username, or a problem contacting API")
@@ -184,14 +188,17 @@ for year in year_range:
         filename = f"all_revenues_{year}_{pay_month}.csv"
 
         print(f"Processing with {CALENDAR[pay_month]} {pay_complete_year}, please wait...")
-        with open(pathlib.Path.cwd() / 'data' / filename, 'r', encoding='utf-8') as f:
-            imported_data = csv.reader(f)
-            imported_data.__next__()
-            for row in imported_data:
-                if int(row[0]) == streamer_id:
-                    for column in row:
-                        month_results.append(column)
+        with open(pathlib.Path.cwd() / 'data' / filename, 'r', newline='', encoding='utf-8') as f:
+            for j, row in enumerate(f):
+                # print(row)
+                # print(row.split(','))
+                # print(row.split(',')[0])
+                if row.split(',')[0] == streamer_id:
+                    print(row)
+                    month_results = row.split(',')
+                    print(month_results)
                     break
+
         # imported_data = []
         sum_salary = 0
         # Selects and sums payment columns from original CSV file streamer line excluding indexes 0,1 and 11.
