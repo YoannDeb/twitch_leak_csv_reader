@@ -28,6 +28,15 @@ Type in a terminal:
 
 ## Setting analyzed streamer:
 
+### Searching streamer from username (option 1):
+* You will need access to twitch API.
+* For this you've got to [Register an app](https://dev.twitch.tv/console/apps/create) to get:
+ - A twitch client ID
+ - A twitch client secret
+* You can then enter your ID and Secret for variables TWITCH_ID and TWITCH_SECRET
+
+### Searching streamer from id (option 2):
+* No need for twitch ID's
 * You can find ID of the streamer with his username using a site like https://www.streamweasels.com/support/convert-twitch-username-to-user-id/ .
 * Replace constant STREAMER_ID value at the beginning of twitch_leak_csv_reader.py with your favorite text editor to the one of the streamer you want. (example STREAMER_ID = 12345678)
 
