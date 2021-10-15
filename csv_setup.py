@@ -38,7 +38,7 @@ def read_and_clean_csv(year, month):
 
     print(f"Cleaning {filename}, please wait...")
 
-    with open(pathlib.Path.cwd() / 'data' / 'csv' / filename, 'r', encoding='utf-8') as f:
+    with open(pathlib.Path.cwd() / 'data' / filename, 'r', encoding='utf-8') as f:
         content = csv.reader(f)
         cleaned_csv = []
         header = True
@@ -79,6 +79,34 @@ def export_gzip_to_csv(year, month):
         create_csv(filename, content)
 
 
+def export_and_sort(year, month):
+    folder_year = f"20{year}"
+    filename = f"all_revenues_{year}_{month}.csv"
+
+    print(f"Creating {filename}, please wait...")
+
+    if folder_year == "2019" and month == "08":
+        final_folder = "28"
+    elif folder_year == "2021" and month == "10":
+        final_folder = "05"
+    else:
+        final_folder = "07"
+
+    with gzip.open(
+            pathlib.Path.cwd() / 'twitch-payouts' / 'all_revenues' / folder_year / month / final_folder / 'all_revenues.csv.gz',
+            mode='rt') as f:
+        content = csv.reader(f)
+        create_csv(filename, sort(content))
+
+
+def sort(content):
+    listed_content = []
+    for row in content:
+        listed_content.append(row)
+    listed_content.sort(key=lambda x: int(x[0]))
+    return listed_content
+
+
 def main():
     print("CSV setup - See README.md for more info")
     print()
@@ -88,12 +116,15 @@ def main():
     print("         (Original twitch_payout folder must be placed in root folder.)")
     print("3: Just shrink already imported files")
     print("         (Files must be in data folder with the right name)")
+    print("4: Import and sort by twitch user id.")
+    print("         (Files must be in data folder with the right name)")
     print()
 
     choice = ""
+    possible_choices = ["1", "2", "3", "4"]
     while choice == "":
         choice = input("Please enter your choice: ")
-        if choice != "1" and choice != "2" and choice != "3":
+        if choice not in possible_choices:
             print("Choice not available")
             print()
             choice = ""
@@ -139,6 +170,13 @@ def main():
                     read_and_clean_csv(year, month)
                 except FileNotFoundError as e:
                     print("Files not found, make sure they are imported and in the good place")
+                    print(e)
+            elif choice == "4":
+                try:
+                    export_and_sort(year, month)
+                except FileNotFoundError as e:
+                    print(f"Couldn't find all_revenues.csv.gz for {month}/20{year}")
+                    print("Please check if 'twitch_payouts' folder is in the good place")
                     print(e)
 
     print(f"All CSVs successfully imported. Process time: {elapsed_time_formatted(start)}")
