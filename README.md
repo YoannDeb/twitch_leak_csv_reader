@@ -8,7 +8,8 @@ This program executes locally in console.
 * You need python3 (you can install python 3 from official site : https://www.python.org/)
 * The original Twitch-payouts folder from the twitch leaks part one.
 * requested module (you may consider running a virtual environment like venv, see https://docs.python.org/3/library/venv.html
-to install all requested modules:
+To install all requested modules:
+
     ```pip install requirements```
 
 ## Import and shrink csv files:
