@@ -11,7 +11,7 @@ This program executes locally in console.
 
 To install all requested modules:
 
-    ```pip install requirements```
+```pip install requirements```
 
 ## Import and shrink csv files:
 
